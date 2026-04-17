@@ -119,6 +119,9 @@ export class SpeedFishing extends BaseMinigame {
         state.phase = 'waiting';
         const castQuality = state.power / 100; // 0-1
 
+        // Grey out cast button while waiting for a bite
+        document.getElementById('btn-cast').classList.add('waiting');
+
         // Show cast animation
         this._animateCast(castQuality);
 
@@ -225,6 +228,8 @@ export class SpeedFishing extends BaseMinigame {
     state.reelProgress = 0;
     state.explosiveBite = false;
 
+    const castBtn = document.getElementById('btn-cast');
+    if (castBtn) castBtn.classList.remove('waiting');
     document.getElementById('btn-cast').style.display = 'block';
     document.getElementById('btn-reel').style.display = 'none';
     document.getElementById('btn-reel').classList.remove('active');
@@ -284,13 +289,20 @@ export class SpeedFishing extends BaseMinigame {
       bobber.style.top = `${50 + quality * 10}%`;
       bobber.style.left = `${45 + quality * 10}%`;
     }
-    // Transition to idle-in once cast animation plays (~600ms)
-    setTimeout(() => this._setRodState('waiting'), 600);
+    // Transition to idle-in once cast animation plays (~600ms), then start bobber float
+    setTimeout(() => {
+      this._setRodState('waiting');
+      const b = document.getElementById('bobber-sprite');
+      if (b) b.classList.add('floating');
+    }, 600);
   }
 
   _showBite() {
     const bobber = document.getElementById('bobber-sprite');
-    if (bobber) bobber.classList.add('bite');
+    if (bobber) {
+      bobber.classList.remove('floating');
+      bobber.classList.add('bite');
+    }
 
     const exclaim = document.getElementById('exclamation-sprite');
     if (exclaim) {
@@ -310,7 +322,7 @@ export class SpeedFishing extends BaseMinigame {
   _hideBobber() {
     const bobber = document.getElementById('bobber-sprite');
     if (bobber) {
-      bobber.classList.remove('bite');
+      bobber.classList.remove('bite', 'floating');
       bobber.style.display = 'none';
     }
     const exclaim = document.getElementById('exclamation-sprite');

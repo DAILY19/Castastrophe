@@ -102,16 +102,24 @@
 }
 
 /* ======== Rod Animation ======== */
+/*
+ * The rod GIFs have sky + ocean baked into their background.
+ * By sizing to 75% height (not full-canvas), and using a mask that fades
+ * from transparent at the top (hiding the sky/horizon ~35% of the GIF)
+ * to opaque below it, the pixel ocean background shows above the rod.
+ */
 .rod-anim {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: bottom center;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 75%;
+  width: auto;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   z-index: 1;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 34%, black 44%);
+  mask-image: linear-gradient(to bottom, transparent 34%, black 44%);
 }
 
 /* ======== Bobber Sprite ======== */
@@ -130,13 +138,22 @@
   transition: top 0.4s ease, left 0.5s ease;
 }
 
-.bobber-sprite.bite {
-  animation: bobberBiteSprite 0.12s ease infinite alternate;
+.bobber-sprite.floating {
+  animation: bobberFloat 2.5s ease-in-out infinite alternate;
 }
 
-@keyframes bobberBiteSprite {
-  from { margin-top: 0; }
-  to   { margin-top: 8px; }
+.bobber-sprite.bite {
+  animation: bobberBob 0.18s ease-in-out infinite alternate;
+}
+
+@keyframes bobberFloat {
+  from { transform: translate(-50%, -50%); }
+  to   { transform: translate(-50%, calc(-50% + 5px)); }
+}
+
+@keyframes bobberBob {
+  from { transform: translate(-50%, -50%); }
+  to   { transform: translate(-50%, calc(-50% + 10px)); }
 }
 
 /* ======== Exclamation Sprite ======== */
@@ -316,6 +333,12 @@
 .btn-cast {
   background: var(--color-primary);
   color: white;
+  transition: opacity 0.2s ease;
+}
+
+.btn-cast.waiting {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .btn-reel {

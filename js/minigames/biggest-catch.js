@@ -105,6 +105,9 @@ export class BiggestCatch extends BaseMinigame {
         this._hidePowerBar();
         state.phase = 'waiting';
 
+        // Grey out cast button while waiting
+        document.getElementById('btn-cast').classList.add('waiting');
+
         const castQuality = state.power / 100;
         this._animateCast(castQuality);
 
@@ -242,12 +245,19 @@ export class BiggestCatch extends BaseMinigame {
       bobber.style.top = `${50 + quality * 10}%`;
       bobber.style.left = `${45 + quality * 10}%`;
     }
-    setTimeout(() => this._setRodState('waiting'), 600);
+    setTimeout(() => {
+      this._setRodState('waiting');
+      const b = document.getElementById('bobber-sprite');
+      if (b) b.classList.add('floating');
+    }, 600);
   }
 
   _showBite() {
     const bobber = document.getElementById('bobber-sprite');
-    if (bobber) bobber.classList.add('bite');
+    if (bobber) {
+      bobber.classList.remove('floating');
+      bobber.classList.add('bite');
+    }
 
     const exclaim = document.getElementById('exclamation-sprite');
     if (exclaim) {
@@ -258,6 +268,7 @@ export class BiggestCatch extends BaseMinigame {
 
     this._setRodState('bite');
     showGameMessage('BIG BITE! Reel it in!', 0);
+    document.getElementById('btn-cast').classList.remove('waiting');
     document.getElementById('btn-cast').style.display = 'none';
     document.getElementById('btn-reel').style.display = 'block';
   }
@@ -285,6 +296,7 @@ export class BiggestCatch extends BaseMinigame {
     const btnCast = document.getElementById('btn-cast');
     const btnReel = document.getElementById('btn-reel');
     if (btnCast) {
+      btnCast.classList.remove('waiting');
       btnCast.removeEventListener('touchstart', this._onCastDown);
       btnCast.removeEventListener('mousedown', this._onCastDown);
       btnCast.removeEventListener('touchend', this._onCastUp);
