@@ -8,23 +8,23 @@ import { db, ref, update, get } from './firebase-config.js';
 export const FISH_CATALOG = [
   // Common fish
   { id: 'anchovy',    name: 'Anchovy',       emoji: '🐟', points: 10,  weight: [0.1, 0.3],  rarity: 'common',    image: 'assets/fish/anchovy.png' },
-  { id: 'mackerel',   name: 'Mackerel',      emoji: '🐟', points: 15,  weight: [0.5, 2],    rarity: 'common',    image: 'assets/fish/anchovy.png' },
+  { id: 'mackerel',   name: 'Mackerel',      emoji: '🐟', points: 15,  weight: [0.5, 2],    rarity: 'common',    image: 'pixel ocean/peixinhos4.png' },
   { id: 'bass',       name: 'Sea Bass',      emoji: '🐟', points: 20,  weight: [1, 5],      rarity: 'common',    image: 'assets/fish/sea-bass.png' },
-  { id: 'trout',      name: 'Trout',         emoji: '🐟', points: 25,  weight: [1, 4],      rarity: 'common',    image: 'assets/fish/sea-bass.png' },
+  { id: 'trout',      name: 'Trout',         emoji: '🐟', points: 25,  weight: [1, 4],      rarity: 'common',    image: 'pixel ocean/peixinhos3.png' },
 
   // Uncommon fish
-  { id: 'salmon',     name: 'Salmon',        emoji: '🐠', points: 40,  weight: [3, 10],     rarity: 'uncommon',  image: 'assets/fish/sea-bass.png' },
+  { id: 'salmon',     name: 'Salmon',        emoji: '🐠', points: 40,  weight: [3, 10],     rarity: 'uncommon',  image: 'pixel ocean/peixinhos1.png' },
   { id: 'tuna',       name: 'Tuna',          emoji: '🐠', points: 50,  weight: [10, 50],    rarity: 'uncommon',  image: 'assets/fish/tuna.png' },
-  { id: 'catfish',    name: 'Catfish',       emoji: '🐱', points: 35,  weight: [2, 15],     rarity: 'uncommon',  image: 'assets/fish/sea-bass.png' },
+  { id: 'catfish',    name: 'Catfish',       emoji: '🐱', points: 35,  weight: [2, 15],     rarity: 'uncommon',  image: 'pixel ocean/peixinhos2.png' },
 
   // Rare fish
   { id: 'swordfish',  name: 'Swordfish',     emoji: '🗡️', points: 80,  weight: [20, 100],   rarity: 'rare',      image: 'assets/fish/tuna.png' },
   { id: 'shark',      name: 'Great White',   emoji: '🦈', points: 100, weight: [50, 200],   rarity: 'rare',      image: 'assets/fish/shark.png' },
-  { id: 'whale',      name: 'Whale',         emoji: '🐋', points: 150, weight: [500, 2000], rarity: 'rare',      image: 'assets/fish/shark.png' },
+  { id: 'whale',      name: 'Whale',         emoji: '🐋', points: 150, weight: [500, 2000], rarity: 'rare',      image: 'pixel ocean/peixinhos6.png' },
 
   // Legendary
-  { id: 'golden',     name: 'Golden Fish',   emoji: '✨', points: 200, weight: [1, 1],      rarity: 'legendary', image: 'assets/fish/tuna.png' },
-  { id: 'kraken',     name: 'Baby Kraken',   emoji: '🐙', points: 250, weight: [100, 500],  rarity: 'legendary', image: 'assets/fish/shark.png' },
+  { id: 'golden',     name: 'Golden Fish',   emoji: '✨', points: 200, weight: [1, 1],      rarity: 'legendary', image: 'pixel ocean/peixinhos7.png' },
+  { id: 'kraken',     name: 'Baby Kraken',   emoji: '🐙', points: 250, weight: [100, 500],  rarity: 'legendary', image: 'pixel ocean/peixinhos8.png' },
 
   // Junk
   { id: 'boot',       name: 'Old Boot',      emoji: '👢', points: -5,  weight: [0.5, 1],    rarity: 'junk',      image: 'assets/store/worm.png' },

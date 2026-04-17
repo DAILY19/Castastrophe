@@ -3,12 +3,15 @@
 # Usage: .\start.ps1
 #        .\start.ps1 -Port 3000
 #        .\start.ps1 -NoBrowser
+# Companion scripts: .\stop.ps1  |  .\refresh.ps1
 # Share the Network URL with phones on the same WiFi.
 # ============================================================
 param(
     [int]$Port = 8080,
     [switch]$NoBrowser
 )
+
+$PidFile = Join-Path $PSScriptRoot '.castastrophe.pid'
 
 $ErrorActionPreference = 'Continue'
 $rootDir = $PSScriptRoot
@@ -83,6 +86,9 @@ $httpProcess = Start-Process -FilePath $httpServerCmd `
     -RedirectStandardError $errFile `
     -PassThru -NoNewWindow
 
+# Save PID so stop.ps1 / refresh.ps1 can find the process
+$httpProcess.Id | Set-Content -Path $PidFile
+
 # ---- Wait until port is actually open ------------------------------
 
 Write-Host "Waiting for server..." -ForegroundColor DarkGray
@@ -141,5 +147,6 @@ finally {
     if ($httpProcess -and -not $httpProcess.HasExited) {
         Stop-Process -Id $httpProcess.Id -Force -ErrorAction SilentlyContinue
     }
+    Remove-Item -Path $PidFile -Force -ErrorAction SilentlyContinue
     Write-Host "  Done." -ForegroundColor DarkGray
 }

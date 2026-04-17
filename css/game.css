@@ -1,3 +1,60 @@
+/* ======== Ambient Swimming Fish ======== */
+.ambient-fish-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ambient-fish {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  opacity: 0.6;
+}
+
+.swim-1 {
+  top: 60%;
+  animation: swimRight 12s linear infinite;
+}
+
+.swim-2 {
+  top: 75%;
+  animation: swimLeft 15s linear infinite;
+  transform: scaleX(-1);
+}
+
+.swim-3 {
+  top: 85%;
+  width: 24px;
+  height: 24px;
+  animation: swimRight 18s linear infinite;
+  animation-delay: -5s;
+}
+
+.swim-4 {
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  animation: swimLeft 20s linear infinite;
+  animation-delay: -8s;
+  transform: scaleX(-1);
+}
+
+@keyframes swimRight {
+  0%   { left: -40px; }
+  100% { left: calc(100% + 40px); }
+}
+
+@keyframes swimLeft {
+  0%   { left: calc(100% + 40px); }
+  100% { left: -40px; }
+}
+
 /* ======== Game HUD ======== */
 .game-hud {
   position: fixed;
@@ -33,12 +90,15 @@
   left: 0;
   right: 0;
   bottom: 100px;
-  background: linear-gradient(180deg, #b8e9f5 0%, #b8e9f5 30%, #4e9ddf 30%, #4e9ddf 100%);
+  background: url('../pixel%20ocean/fundo%20do%20mar%20back.png') center bottom / cover no-repeat;
+  background-color: #1a5276;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 /* ======== Rod Animation ======== */

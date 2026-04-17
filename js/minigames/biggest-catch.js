@@ -34,6 +34,12 @@ export class BiggestCatch extends BaseMinigame {
 
     const canvas = document.getElementById('game-canvas');
     canvas.innerHTML = `
+      <div class="ambient-fish-layer">
+        <img class="ambient-fish swim-1" src="pixel ocean/peixinhos2.png" alt="">
+        <img class="ambient-fish swim-2" src="pixel ocean/peixinhos4.png" alt="">
+        <img class="ambient-fish swim-3" src="pixel ocean/peixinhos7.png" alt="">
+        <img class="ambient-fish swim-4" src="pixel ocean/peixinhos8.png" alt="">
+      </div>
       <img id="rod-anim" class="rod-anim" src="assets/rod/idle-out.gif" alt="">
       <img id="bobber-sprite" class="bobber-sprite" src="assets/ui/bobber.png" alt="" style="display:none">
       <img id="exclamation-sprite" class="exclamation-sprite" src="assets/ui/exclamation.png" alt="" style="display:none">

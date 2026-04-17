@@ -37,6 +37,12 @@ export class SpeedFishing extends BaseMinigame {
     // Set up game area
     const canvas = document.getElementById('game-canvas');
     canvas.innerHTML = `
+      <div class="ambient-fish-layer">
+        <img class="ambient-fish swim-1" src="pixel ocean/peixinhos1.png" alt="">
+        <img class="ambient-fish swim-2" src="pixel ocean/peixinhos3.png" alt="">
+        <img class="ambient-fish swim-3" src="pixel ocean/peixinhos5.png" alt="">
+        <img class="ambient-fish swim-4" src="pixel ocean/peixinhos6.png" alt="">
+      </div>
       <img id="rod-anim" class="rod-anim" src="assets/rod/idle-out.gif" alt="">
       <img id="bobber-sprite" class="bobber-sprite" src="assets/ui/bobber.png" alt="" style="display:none">
       <img id="exclamation-sprite" class="exclamation-sprite" src="assets/ui/exclamation.png" alt="" style="display:none">
