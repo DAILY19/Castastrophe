@@ -1,6 +1,7 @@
 ﻿// ============================================================
 // Kepler Klicker — Main Game
 // ============================================================
+import * as Auth from './auth.js';
 
 // ---- Upgrade Definitions ----
 // type: 'dps'          — flat passive stardust/sec per owned
@@ -8,159 +9,189 @@
 // type: 'dps_multi'    — multiplies total DPS (e.g. mult:1.10 = +10% per owned)
 // type: 'click_multi'  — multiplies click power (e.g. mult:1.20 = +20% per owned)
 const UPGRADES = [
-  // ---- Passive Income ----
+  // ---- Passive Income (DPS) ----
   {
-    id: 'mining_pick',
-    name: 'Mining Pick',
+    id: 'pickaxe',
+    name: 'Pickaxe',
     desc: '+1/sec each',
     type: 'dps',
     baseCost: 15,
     costScale: 1.15,
     dps: 1,
-    icon: 'assets/Icons/Icon31_01.png',
+    icon: 'assets/Icons/Upgrades/Pickaxe_Icon.png',
   },
   {
-    id: 'excavator',
-    name: 'Excavator Drone',
+    id: 'shovel',
+    name: 'Shovel',
     desc: '+5/sec each',
     type: 'dps',
     baseCost: 100,
     costScale: 1.15,
     dps: 5,
-    icon: 'assets/Icons/Icon31_05.png',
+    icon: 'assets/Icons/Upgrades/Shovel_Icon.png',
   },
   {
-    id: 'rocket_probe',
-    name: 'Rocket Probe',
+    id: 'drill',
+    name: 'Drill',
     desc: '+25/sec each',
     type: 'dps',
     baseCost: 500,
     costScale: 1.15,
     dps: 25,
-    icon: 'assets/Icons/Icon31_04.png',
+    icon: 'assets/Icons/Upgrades/Drill_Icon.png',
   },
   {
-    id: 'cryo_drill',
-    name: 'Cryo Drill',
+    id: 'excavator',
+    name: 'Excavator',
     desc: '+100/sec each',
     type: 'dps',
     baseCost: 2500,
     costScale: 1.15,
     dps: 100,
-    icon: 'assets/Icons/Icon31_07.png',
+    icon: 'assets/Icons/Upgrades/Excavator_Icon.png',
   },
   {
-    id: 'lava_forge',
-    name: 'Lava Forge',
+    id: 'laser_drill',
+    name: 'Laser Drill',
     desc: '+400/sec each',
     type: 'dps',
     baseCost: 12000,
     costScale: 1.15,
     dps: 400,
-    icon: 'assets/Icons/Icon31_35.png',
+    icon: 'assets/Icons/Upgrades/Laser_Drill_Icon.png',
   },
   {
-    id: 'xenite_forge',
-    name: 'Xenite Forge',
+    id: 'mega_drill',
+    name: 'Mega Drill',
     desc: '+1,600/sec each',
     type: 'dps',
     baseCost: 55000,
     costScale: 1.15,
     dps: 1600,
-    icon: 'assets/Icons/Icon31_40.png',
+    icon: 'assets/Icons/Upgrades/Mega_Drill_Icon.png',
   },
   {
-    id: 'singularity',
-    name: 'Singularity Engine',
+    id: 'alien_shovel',
+    name: 'Alien Shovel',
     desc: '+6,666/sec each',
     type: 'dps',
     baseCost: 250000,
     costScale: 1.15,
     dps: 6666,
-    icon: 'assets/Icons/Icon31_09.png',
+    icon: 'assets/Icons/Upgrades/Alien_Shovel_Icon.png',
+  },
+  {
+    id: 'particle_accelerator',
+    name: 'Particle Accelerator',
+    desc: '+25,000/sec each',
+    type: 'dps',
+    baseCost: 1000000,
+    costScale: 1.15,
+    dps: 25000,
+    icon: 'assets/Icons/Upgrades/Particle_Accelerator_Icon.png',
   },
   // ---- Click Power (flat bonus per owned) ----
   {
-    id: 'mining_gloves',
-    name: 'Mining Gloves',
+    id: 'metal_detector',
+    name: 'Metal Detector',
     desc: '+2 click each',
     type: 'click',
     baseCost: 75,
     costScale: 1.20,
     clickBonus: 2,
-    icon: 'assets/Icons/Icon31_16.png',
+    icon: 'assets/Icons/Upgrades/Metal_Detector_Icon.png',
   },
   {
-    id: 'star_crystal',
-    name: 'Star Crystal',
+    id: 'magnet',
+    name: 'Magnet',
     desc: '+10 click each',
     type: 'click',
     baseCost: 800,
     costScale: 1.20,
     clickBonus: 10,
-    icon: 'assets/Icons/Icon31_21.png',
+    icon: 'assets/Icons/Upgrades/Magnet_Icon.png',
   },
   {
-    id: 'plasma_drill',
-    name: 'Plasma Drill',
+    id: 'adrenaline',
+    name: 'Adrenaline',
     desc: '+50 click each',
     type: 'click',
     baseCost: 8000,
     costScale: 1.20,
     clickBonus: 50,
-    icon: 'assets/Icons/Icon31_06.png',
+    icon: 'assets/Icons/Upgrades/Adrenaline_Icon.png',
   },
   {
-    id: 'void_cannon',
-    name: 'Void Cannon',
+    id: 'adjustable_lens',
+    name: 'Adjustable Lens',
     desc: '+250 click each',
     type: 'click',
     baseCost: 80000,
     costScale: 1.20,
     clickBonus: 250,
-    icon: 'assets/Icons/Icon31_10.png',
+    icon: 'assets/Icons/Upgrades/Adjustable_Lens_Icon.png',
   },
   // ---- DPS Multipliers ----
   {
-    id: 'nebula_turbine',
-    name: 'Nebula Turbine',
+    id: 'battery',
+    name: 'Battery',
     desc: '+10% all/sec each',
     type: 'dps_multi',
     baseCost: 5000,
     costScale: 1.25,
     mult: 1.10,
-    icon: 'assets/Icons/Icon31_03.png',
+    icon: 'assets/Icons/Upgrades/Battery_Icon.png',
   },
   {
-    id: 'alien_symbiont',
-    name: 'Alien Symbiont',
+    id: 'carbon_fiber',
+    name: 'Carbon Fiber',
     desc: '+15% all/sec each',
     type: 'dps_multi',
     baseCost: 100000,
     costScale: 1.25,
     mult: 1.15,
-    icon: 'assets/Icons/Icon31_36.png',
+    icon: 'assets/Icons/Upgrades/Carbon_Fiber_Icon.png',
+  },
+  {
+    id: 'heat_displacer',
+    name: 'Heat Displacer',
+    desc: '+20% all/sec each',
+    type: 'dps_multi',
+    baseCost: 500000,
+    costScale: 1.25,
+    mult: 1.20,
+    icon: 'assets/Icons/Upgrades/Heat_Displacer_Icon.png',
   },
   // ---- Click Multipliers ----
   {
-    id: 'ice_crystal',
-    name: 'Ice Crystal',
-    desc: '+20% click each',
+    id: 'hud_panel',
+    name: 'HUD Panel',
+    desc: '+15% click each',
     type: 'click_multi',
     baseCost: 3500,
     costScale: 1.25,
-    mult: 1.20,
-    icon: 'assets/Icons/Icon31_23.png',
+    mult: 1.15,
+    icon: 'assets/Icons/Upgrades/HUD_Panel_Icon.png',
   },
   {
-    id: 'plasma_catalyst',
-    name: 'Plasma Catalyst',
-    desc: '+25% click each',
+    id: 'spotlight',
+    name: 'Spotlight',
+    desc: '+20% click each',
     type: 'click_multi',
     baseCost: 35000,
     costScale: 1.25,
+    mult: 1.20,
+    icon: 'assets/Icons/Upgrades/Spotlight_Icon.png',
+  },
+  {
+    id: 'ventilation',
+    name: 'Ventilation',
+    desc: '+25% click each',
+    type: 'click_multi',
+    baseCost: 300000,
+    costScale: 1.25,
     mult: 1.25,
-    icon: 'assets/Icons/Icon31_34.png',
+    icon: 'assets/Icons/Upgrades/Ventilation_Icon.png',
   },
 ];
 
@@ -196,6 +227,20 @@ const btnMusic     = document.getElementById('btn-music');
 const btnSFX       = document.getElementById('btn-sfx');
 const btnNextTrack = document.getElementById('btn-next-track');
 const btnReset     = document.getElementById('btn-reset');
+const btnLogin     = document.getElementById('btn-login');
+const btnLeaderboard = document.getElementById('btn-leaderboard');
+
+// ---- Modal refs ----
+const elModalOverlay    = document.getElementById('modal-overlay');
+const elLoginPanel      = document.getElementById('login-panel');
+const elProfilePanel    = document.getElementById('profile-panel');
+const elLeaderboardPanel = document.getElementById('leaderboard-panel');
+const elProfileName     = document.getElementById('profile-name');
+const elProfileScore    = document.getElementById('profile-score');
+const elProfileAvatar   = document.getElementById('profile-avatar');
+const elLeaderboardList = document.getElementById('leaderboard-list');
+const elUserBar         = document.getElementById('user-bar');
+const elUserBarName     = document.getElementById('user-bar-name');
 
 // ---- Audio ----
 const MUSIC_LOOPS = [
@@ -527,6 +572,13 @@ function saveGame() {
     savedAt: Date.now(),
   };
   localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+
+  // Cloud sync when logged in
+  Auth.syncScore({
+    totalStardust: game.totalStardust,
+    stardust: game.stardust,
+    owned: game.owned,
+  });
 }
 
 function loadGame() {
@@ -572,12 +624,138 @@ function resetGame() {
 // ---- Auto-save every 30s ----
 setInterval(saveGame, 30000);
 
+// ---- Modal helpers ----
+function showModal(panel) {
+  elLoginPanel.hidden      = panel !== 'login';
+  elProfilePanel.hidden    = panel !== 'profile';
+  elLeaderboardPanel.hidden = panel !== 'leaderboard';
+  elModalOverlay.hidden = false;
+}
+
+function hideModal() {
+  elModalOverlay.hidden = true;
+}
+
+// ---- Auth UI ----
+function updateAuthUI(user) {
+  const loggedIn = !!user;
+  // Login button icon toggles between Google (login prompt) and active (logged in)
+  btnLogin.querySelector('img').src = loggedIn
+    ? 'assets/UI/Buttons/BTNs_Active/Google_BTN.png'
+    : 'assets/UI/Buttons/BTNs/Google_BTN.png';
+
+  // User bar under stats
+  if (elUserBar) {
+    elUserBar.hidden = !loggedIn;
+    if (loggedIn && elUserBarName) {
+      elUserBarName.textContent = user.displayName || 'Explorer';
+    }
+  }
+}
+
+async function onLoginClick() {
+  const user = Auth.getCurrentUser();
+  if (user) {
+    // Show profile panel
+    elProfileName.textContent  = user.displayName || 'Explorer';
+    elProfileScore.textContent = formatNum(game.totalStardust);
+    if (user.photoURL) {
+      elProfileAvatar.innerHTML = `<img src="${user.photoURL}" alt="avatar">`;
+    } else {
+      const initials = (user.displayName || 'E').charAt(0).toUpperCase();
+      elProfileAvatar.textContent = initials;
+    }
+    showModal('profile');
+  } else {
+    showModal('login');
+  }
+}
+
+async function handleGoogleSignIn() {
+  try {
+    const user = await Auth.signInWithGoogle();
+    hideModal();
+
+    // Merge cloud save with local save
+    const cloud = await Auth.loadCloudSave();
+    if (cloud && cloud.totalStardust > game.totalStardust) {
+      game.stardust      = cloud.stardust      || 0;
+      game.totalStardust = cloud.totalStardust || 0;
+      game.owned         = cloud.owned         || {};
+      renderShop();
+      updateDisplay();
+      showSaveToast('Cloud save loaded!');
+    }
+    updateAuthUI(user);
+    saveGame(); // Sync merged state back to cloud
+  } catch (e) {
+    console.warn('Sign-in failed:', e);
+    showSaveToast('Sign-in failed.');
+  }
+}
+
+async function handleSignOut() {
+  await Auth.signOutUser();
+  hideModal();
+  updateAuthUI(null);
+}
+
+async function openLeaderboard() {
+  showModal('leaderboard');
+  elLeaderboardList.innerHTML = '<div class="lb-loading">Loading...</div>';
+
+  const entries = await Auth.getLeaderboard(20);
+  if (!entries.length) {
+    elLeaderboardList.innerHTML = '<div class="lb-loading">No scores yet. Be the first!</div>';
+    return;
+  }
+
+  const currentUser = Auth.getCurrentUser();
+  let html = '';
+  entries.forEach((entry, i) => {
+    const rank   = i + 1;
+    const name   = entry.displayName || 'Explorer';
+    const score  = formatNum(entry.totalStardust || 0);
+    const isSelf = currentUser && entry.id === currentUser.uid;
+    html += `
+      <div class="lb-row${isSelf ? ' lb-self' : ''}">
+        <span class="lb-rank">${rank}</span>
+        <span class="lb-name">${name}</span>
+        <span class="lb-score">${score}</span>
+      </div>`;
+  });
+  elLeaderboardList.innerHTML = html;
+}
+
+// ---- Save Toast ----
+function showSaveToast(msg = 'Game saved!') {
+  const existing = document.querySelector('.save-toast');
+  if (existing) existing.remove();
+  const toast = document.createElement('div');
+  toast.className = 'save-toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  toast.addEventListener('animationend', () => toast.remove());
+}
+
+// ---- Keyboard shortcuts ----
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+    e.preventDefault();
+    saveGame();
+    showSaveToast();
+  }
+});
+
 // ---- Init ----
 loadGame();
 updateButtonStates();
 renderShop();
 updateDisplay();
 requestAnimationFrame(tick);
+
+// Auth state
+Auth.onAuthChange(updateAuthUI);
 
 // Event listeners
 elPlanetWrap.addEventListener('pointerdown', handleClick);
@@ -590,6 +768,15 @@ btnMusic.addEventListener('click', toggleMusic);
 btnSFX.addEventListener('click', toggleSFX);
 btnNextTrack.addEventListener('click', nextTrack);
 btnReset.addEventListener('click', resetGame);
+btnLogin.addEventListener('click', onLoginClick);
+btnLeaderboard.addEventListener('click', openLeaderboard);
+
+// Modal buttons
+document.getElementById('btn-google-signin').addEventListener('click', handleGoogleSignIn);
+document.getElementById('btn-guest-play').addEventListener('click', hideModal);
+document.getElementById('btn-signout').addEventListener('click', handleSignOut);
+document.querySelectorAll('.modal-close-btn').forEach(b => b.addEventListener('click', hideModal));
+elModalOverlay.addEventListener('click', e => { if (e.target === elModalOverlay) hideModal(); });
 
 // Save on close
 window.addEventListener('beforeunload', saveGame);
