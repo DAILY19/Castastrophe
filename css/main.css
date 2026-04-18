@@ -132,6 +132,7 @@ body {
 .title-glow {
   position: relative;
   display: inline-block;
+  isolation: isolate;
 }
 
 .title-glow::before {
