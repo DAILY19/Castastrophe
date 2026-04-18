@@ -115,14 +115,15 @@ body {
 
 .title {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 800;
   margin-bottom: 0.25rem;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(135deg, #7edbff, #b39dff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: 0.08em;
+  filter: drop-shadow(0 0 10px rgba(79, 195, 247, 0.7)) drop-shadow(0 0 20px rgba(124, 77, 255, 0.4));
 }
 
 .stats-bar {
@@ -391,15 +392,18 @@ body {
 }
 
 /* ======== Settings Bar ======== */
+#settings-bar-left,
 #settings-bar {
   position: absolute;
   top: 50%;
-  right: 0;
   transform: translateY(-50%);
   display: grid;
   grid-template-columns: repeat(3, 36px);
   gap: 0.3rem;
 }
+
+#settings-bar-left { left: 0; }
+#settings-bar      { right: 0; }
 
 .btn-icon {
   width: 36px;
@@ -456,6 +460,7 @@ body {
     padding: 0;
   }
 
+  #settings-bar-left,
   #settings-bar {
     position: static;
     transform: none;
