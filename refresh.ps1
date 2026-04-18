@@ -51,6 +51,23 @@ Write-Host ""
 Write-Host "  Kepler Klicker Refresh" -ForegroundColor Cyan
 Write-Host ""
 
+# 0. Commit & push any changes to the repository
+Write-Host "  [0/4] Pushing to repository..." -ForegroundColor DarkGray
+Push-Location $rootDir
+$status = & git status --porcelain 2>&1
+if ($status) {
+    & git add -A
+    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm'
+    & git commit -m "Auto-refresh commit: $timestamp"
+}
+& git push origin main
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "        WARNING: git push failed (check remote/auth)." -ForegroundColor Yellow
+} else {
+    Write-Host "        Repository up to date." -ForegroundColor DarkGray
+}
+Pop-Location
+
 # 1. Stop existing server
 Write-Host "  [1/4] Stopping server..." -ForegroundColor DarkGray
 Stop-Server
