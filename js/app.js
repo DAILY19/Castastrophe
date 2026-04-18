@@ -71,7 +71,7 @@ const UPGRADES = [
 
 // Planet skins unlocked at total stardust thresholds
 const PLANET_SKINS = [
-  { threshold: 0,        src: 'assets/Environment/Planets/PNGs/Earth-Like planet.png' },
+  { threshold: 0,        src: 'assets/Environment/Planets/PNGs/Earth-Like planet.png', spriteSheet: true },
   { threshold: 10000,    src: 'assets/Environment/Planets/PNGs/Ice.png' },
   { threshold: 100000,   src: 'assets/Environment/Planets/PNGs/Lava.png' },
   { threshold: 1000000,  src: 'assets/Environment/Planets/PNGs/Terran.png' },
@@ -86,7 +86,7 @@ let game = {
   owned: {},       // { upgradeId: count }
   musicOn: false,
   sfxOn: true,
-  currentSkin: 0,
+  currentSkin: -1,
 };
 
 // ---- DOM Refs ----
@@ -262,10 +262,11 @@ function updatePlanetSkin() {
       break;
     }
   }
-  if (skinIdx !== game.currentSkin) {
-    game.currentSkin = skinIdx;
-    elPlanet.src = PLANET_SKINS[skinIdx].src;
-  }
+  if (skinIdx === game.currentSkin) return;
+  game.currentSkin = skinIdx;
+  const skin = PLANET_SKINS[skinIdx];
+  elPlanet.style.backgroundImage = `url('${skin.src}')`;
+  elPlanet.classList.toggle('skin-sprite', !!skin.spriteSheet);
 }
 
 // ---- Click Handling ----
@@ -277,9 +278,9 @@ function handleClick(e) {
   game.totalStardust += game.clickPower;
 
   // Animate planet
-  elPlanet.classList.remove('clicked');
-  void elPlanet.offsetWidth; // reflow
-  elPlanet.classList.add('clicked');
+  elPlanetWrap.classList.remove('clicked');
+  void elPlanetWrap.offsetWidth; // reflow
+  elPlanetWrap.classList.add('clicked');
 
   playSFX('click');
 
@@ -436,9 +437,9 @@ function resetGame() {
     owned: {},
     musicOn: game.musicOn,
     sfxOn: game.sfxOn,
-    currentSkin: 0,
+    currentSkin: -1,
   };
-  elPlanet.src = PLANET_SKINS[0].src;
+  elPlanet.classList.remove('skin-sprite');
   renderShop();
   updateDisplay();
 }

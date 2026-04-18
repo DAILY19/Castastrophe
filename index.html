@@ -7,6 +7,9 @@
   <meta name="mobile-web-app-capable" content="yes">
   <title>Kepler Klicker</title>
   <link rel="stylesheet" href="css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;700;800&family=Orbitron:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
   <!-- ======== BACKGROUND LAYERS ======== -->
@@ -37,7 +40,7 @@
   <!-- ======== MAIN GAME AREA ======== -->
   <main id="game-area">
     <div id="planet-wrapper">
-      <img id="planet" src="assets/Environment/Planets/PNGs/Earth-Like planet.png" alt="Planet" draggable="false">
+      <div id="planet" role="img" aria-label="Planet"></div>
     </div>
   </main>
 
