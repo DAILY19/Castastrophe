@@ -757,6 +757,17 @@ requestAnimationFrame(tick);
 // Auth state
 Auth.onAuthChange(updateAuthUI);
 
+// ---- Double-tap zoom prevention (iOS Safari ignores user-scalable=no) ----
+// If two touchend events fire within 300ms, block the second to prevent zoom.
+// Scrollable containers (.shop-list, .leaderboard-list) are exempt so scrolling still works.
+let _lastTap = 0;
+document.addEventListener('touchend', e => {
+  if (e.target.closest('.shop-list, .leaderboard-list')) return;
+  const now = performance.now();
+  if (now - _lastTap < 300) e.preventDefault();
+  _lastTap = now;
+}, { passive: false });
+
 // Event listeners
 elPlanetWrap.addEventListener('pointerdown', handleClick);
 elPlanetWrap.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
