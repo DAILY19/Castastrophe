@@ -113,6 +113,14 @@ const MUSIC_LOOPS = [
   'assets/Loops/mp3/Sci-Fi 6 Loop.mp3',
   'assets/Loops/mp3/Sci-Fi 7 Loop.mp3',
   'assets/Loops/mp3/Sci-Fi 8 Loop.mp3',
+  'assets/Tracks/mp3/Sci-Fi 1.mp3',
+  'assets/Tracks/mp3/Sci-fi 2.mp3',
+  'assets/Tracks/mp3/Sci-Fi 3.mp3',
+  'assets/Tracks/mp3/Sci-Fi 4.mp3',
+  'assets/Tracks/mp3/Sci-Fi 5.mp3',
+  'assets/Tracks/mp3/Sci-Fi 6.mp3',
+  'assets/Tracks/mp3/Sci-Fi 7.mp3',
+  'assets/Tracks/mp3/Sci-Fi 8.mp3',
 ];
 let currentTrackIdx = 0;
 let bgMusic = null;
@@ -456,6 +464,7 @@ requestAnimationFrame(tick);
 
 // Event listeners
 elPlanetWrap.addEventListener('pointerdown', handleClick);
+elPlanetWrap.addEventListener('touchend', (e) => e.preventDefault(), { passive: false });
 btnToggle.addEventListener('click', () => {
   const collapsed = elShop.classList.toggle('collapsed');
   playSFX(collapsed ? 'shopClose' : 'shopOpen');

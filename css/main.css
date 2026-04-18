@@ -93,8 +93,19 @@ body {
   left: 0;
   right: 0;
   z-index: 10;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(to bottom, rgba(5, 11, 24, 0.95), transparent);
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(to bottom, rgba(5, 11, 24, 0.97) 70%, transparent);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.header-center {
+  flex: 1;
   text-align: center;
   pointer-events: none;
 }
@@ -153,6 +164,7 @@ body {
   position: relative;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+  touch-action: none;
 }
 
 #planet {
@@ -358,12 +370,11 @@ body {
 
 /* ======== Settings Bar ======== */
 #settings-bar {
-  position: fixed;
-  top: 0.5rem;
-  right: 0.5rem;
-  z-index: 30;
   display: flex;
-  gap: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  width: 78px;
+  flex-shrink: 0;
 }
 
 .btn-icon {
@@ -421,6 +432,11 @@ body {
   .btn-icon {
     width: 44px;
     height: 44px;
+  }
+
+  #settings-bar {
+    flex-wrap: nowrap;
+    width: auto;
   }
 
   .shop-list {
