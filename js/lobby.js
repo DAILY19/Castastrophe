@@ -60,12 +60,8 @@ export function initLobby(roomCode, playerId, onGameStart) {
   // Host start button
   const btnStart = document.getElementById('btn-start-game');
   btnStart.onclick = async () => {
-    const roundCount = parseInt(document.getElementById('round-count').value, 10);
     await update(ref(db, `rooms/${roomCode}`), {
       state: 'playing',
-      'settings/rounds': roundCount,
-      currentRound: 1,
-      roundState: 'countdown'
     });
   };
 }

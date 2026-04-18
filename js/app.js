@@ -3,17 +3,15 @@
 // ============================================================
 
 import { showView, showError } from './ui.js';
-import { createRoom, joinRoom, leaveRoom, onRoomUpdate } from './room.js';
+import { createRoom, joinRoom, leaveRoom } from './room.js';
 import { initLobby, cleanupLobby } from './lobby.js';
-import { initGame, cleanupGame } from './game.js';
-import { db, ref, update } from './firebase-config.js';
+import { db, ref, update, get } from './firebase-config.js';
 
 // ---- App State ----
 let state = {
   roomCode: null,
   playerId: null,
   playerName: null,
-  unsubscribeRoom: null
 };
 
 // ---- DOM References ----
@@ -90,20 +88,13 @@ btnPlayAgain.addEventListener('click', async () => {
     return;
   }
 
-  // Reset scores and go back to lobby
-  cleanupGame();
   try {
     await update(ref(db, `rooms/${state.roomCode}`), {
       state: 'lobby',
-      roundState: null,
-      currentRound: null,
-      currentMinigame: null,
-      rounds: null
     });
 
     // Reset all player scores
     const roomRef = ref(db, `rooms/${state.roomCode}`);
-    const { get } = await import('./firebase-config.js');
     const snapshot = await get(roomRef);
     if (snapshot.exists()) {
       const data = snapshot.val();
@@ -152,13 +143,13 @@ inputCode.addEventListener('input', () => {
 // ---- Callbacks ----
 
 function onGameStart(roomData) {
-  initGame(state.roomCode, state.playerId, roomData);
+  // TODO: Implement your game start logic here
+  showView('view-game');
 }
 
 function resetToHome() {
   cleanupLobby();
-  cleanupGame();
-  state = { roomCode: null, playerId: null, playerName: null, unsubscribeRoom: null };
+  state = { roomCode: null, playerId: null, playerName: null };
   showView('view-home');
 }
 

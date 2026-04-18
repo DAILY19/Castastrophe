@@ -6,16 +6,14 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <title>Castastrophe!</title>
-  <link rel="icon" href="assets/fish/anchovy.png">
   <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/game.css">
 </head>
 <body>
   <!-- ======== HOME VIEW ======== -->
   <div id="view-home" class="view active">
     <div class="container">
-      <h1 class="title"><img src="assets/fish/anchovy.png" alt="fish" class="title-icon"> Castastrophe!</h1>
-      <p class="subtitle">A chaotic fishing party game</p>
+      <h1 class="title">Castastrophe!</h1>
+      <p class="subtitle">Multiplayer party game</p>
 
       <div class="card">
         <input type="text" id="player-name" class="input" placeholder="Your Name" maxlength="16" autocomplete="off">
@@ -43,14 +41,6 @@
       <div id="player-list" class="player-list"></div>
 
       <div id="host-controls" class="host-controls" style="display: none;">
-        <label class="label">Rounds:
-          <select id="round-count" class="input input-sm">
-            <option value="3">3</option>
-            <option value="5" selected>5</option>
-            <option value="7">7</option>
-            <option value="10">10</option>
-          </select>
-        </label>
         <button id="btn-start-game" class="btn btn-primary">Start Game</button>
       </div>
 
@@ -60,35 +50,17 @@
   </div>
 
   <!-- ======== GAME VIEW ======== -->
+  <!-- Your game content goes here -->
   <div id="view-game" class="view">
-    <div class="game-hud">
-      <div class="hud-left">
-        <span id="hud-round">Round 1/5</span>
-      </div>
-      <div class="hud-center">
-        <span id="hud-timer" class="hud-timer">30</span>
-      </div>
-      <div class="hud-right">
-        <span id="hud-score">0 pts</span>
-      </div>
-    </div>
-
-    <div id="game-canvas" class="game-canvas">
-      <!-- Minigame content rendered here -->
+    <div class="container">
       <div id="game-message" class="game-message"></div>
-      <div id="castastrophe-banner" class="castastrophe-banner" style="display: none;"></div>
-    </div>
-
-    <div id="game-controls" class="game-controls">
-      <button id="btn-cast" class="btn btn-cast"><img src="assets/rod/idle-out-icon.png" alt="rod" class="btn-icon"> <span id="cast-btn-label">Cast!</span></button>
-      <button id="btn-reel" class="btn btn-reel" style="display: none;"><img src="assets/rod/reel-icon.png" alt="reel" class="btn-icon"> Reel!</button>
     </div>
   </div>
 
-  <!-- ======== ROUND RESULTS VIEW ======== -->
+  <!-- ======== RESULTS VIEW ======== -->
   <div id="view-results" class="view">
     <div class="container">
-      <h2 class="title" id="results-title">Round Results</h2>
+      <h2 class="title" id="results-title">Results</h2>
       <div id="results-list" class="results-list"></div>
       <p id="results-status" class="status-msg"></p>
     </div>
@@ -97,7 +69,7 @@
   <!-- ======== FINAL SCOREBOARD VIEW ======== -->
   <div id="view-scoreboard" class="view">
     <div class="container">
-      <h2 class="title"><img src="assets/ui/success-sheet.png" alt="trophy" class="title-icon"> Final Scores</h2>
+      <h2 class="title">Final Scores</h2>
       <div id="final-scores" class="results-list"></div>
       <button id="btn-play-again" class="btn btn-primary">Play Again</button>
       <button id="btn-home" class="btn btn-secondary">Home</button>

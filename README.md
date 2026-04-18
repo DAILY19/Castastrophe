@@ -1,25 +1,16 @@
 # Castastrophe!
 
-A chaotic, browser-based multiplayer fishing party game where everything that *can* go wrong, **does**.
+A browser-based multiplayer party game platform with Firebase room/lobby infrastructure.
 
 Play live: **https://daily19.github.io/Castastrophe/**
 
-## How to Play
+## What's Included
 
-1. Open the game on any device — phones work best
-2. Enter your name and **Create Room** to host
-3. Share the 4-letter room code with friends (works over WiFi or internet)
-4. Friends open the game and **Join Room** with the code
-5. Host starts the game — chaos ensues!
-
-## Features
-
-- **Mobile-first** — designed for phone browsers, works on desktop too
-- **Real-time multiplayer** — synced via Firebase Realtime Database
-- **Pixel art visuals** — custom pixel ocean background and fish sprites
-- **Castastrophes** — random chaos events disrupt every round
-- **Multiple minigames** — Speed Fishing, Biggest Catch, and more to come
-- **Scoring & leaderboard** — points for catches, penalties for junk
+- **Room system** — Create/join rooms with 4-letter codes
+- **Real-time lobby** — Player list, host controls, presence tracking
+- **Firebase sync** — All state flows through Firebase Realtime Database
+- **Mobile-first UI** — Responsive design, works on phones and desktop
+- **Disconnect handling** — Players marked disconnected, auto-cleanup on leave
 
 ## Running Locally
 
@@ -36,13 +27,6 @@ Opens the game at `http://localhost:8080` and prints the Network URL to share wi
 | `.\start.ps1` | Start the dev server and open browser |
 | `.\stop.ps1` | Stop the running server |
 | `.\refresh.ps1` | Stop → clear cache → restart → open browser with cache-bust |
-| `.\refresh.ps1 -ReinstallDeps` | Same, but also wipes and reinstalls `node_modules` |
-
-**Options for `start.ps1`:**
-```powershell
-.\start.ps1 -Port 3000      # use a different port
-.\start.ps1 -NoBrowser      # don't auto-open the browser
-```
 
 ### Manual (any OS)
 
@@ -53,7 +37,7 @@ npx http-server . -p 8080 -c-1 --cors
 
 ## Firebase Setup
 
-The live game uses the `castastrophe-a61bb` Firebase project. To run your own instance:
+Uses the `castastrophe-a61bb` Firebase project. To run your own instance:
 
 1. Create a [Firebase project](https://console.firebase.google.com) and enable **Realtime Database**
 2. Replace the config values in `js/firebase-config.js` with your own
@@ -65,69 +49,26 @@ The live game uses the `castastrophe-a61bb` Firebase project. To run your own in
 git push origin main
 ```
 
-Pages is configured to serve from the `main` branch root. Live at:
-`https://daily19.github.io/Castastrophe/`
+Pages is configured to serve from the `main` branch root.
 
 ## Project Structure
 
 ```
 ├── index.html              Single HTML entry point
-├── start.ps1               Start dev server
-├── stop.ps1                Stop dev server
-├── refresh.ps1             Restart + cache-bust
 ├── css/
-│   ├── main.css            Global styles & components
-│   └── game.css            In-game styles (ocean background, animations)
+│   └── main.css            Global styles & components
 ├── js/
 │   ├── app.js              Main controller & view routing
 │   ├── firebase-config.js  Firebase initialization
 │   ├── room.js             Room creation & joining
 │   ├── lobby.js            Lobby management
-│   ├── game.js             Game state machine
-│   ├── scoring.js          Fish catalog & score tracking
-│   ├── castastrophes.js    Chaos event system
-│   ├── ui.js               UI utilities & animations
-│   └── minigames/
-│       ├── base.js         Base minigame class
-│       ├── speed-fishing.js Speed Fishing minigame
-│       └── biggest-catch.js Biggest Catch minigame
-├── assets/                 Fish sprites, rod animations, UI icons
-└── pixel ocean/            Pixel art background and fish sprites
+│   └── ui.js               UI utilities & animations
+└── assets/ui/              UI icons
 ```
 
-## Minigames
+## Adding Your Game
 
-| Minigame | Description |
-|----------|-------------|
-| **Speed Fishing** | Catch as many fish as possible in 30 seconds |
-| **Biggest Catch** | One cast — highest weight wins |
-| *More coming...* | Trash Collector, Silent Waters, Tug of War, Storm Mode |
-
-## Fish Catalog
-
-| Rarity | Fish | Points |
-|--------|------|--------|
-| Common | Anchovy, Mackerel, Sea Bass, Trout | 10–25 |
-| Uncommon | Salmon, Tuna, Catfish | 35–50 |
-| Rare | Swordfish, Great White, Whale | 80–150 |
-| Legendary | Golden Fish, Baby Kraken | 200–250 |
-| Junk | Old Boot, Tire, Tin Can, Seaweed | -10–0 |
-
-## Castastrophes
-
-Random events triggered during gameplay:
-
-| Tag | Event | Effect |
-|-----|-------|--------|
-| SNAP | Line Snap | Lose your catch mid-reel |
-| BOOT | Boot Instead | Junk catch replaces your fish |
-| THEFT | Fish Theft | Another player steals your catch |
-| BIRD | Bird Attack | Disrupts your cast |
-| BOOM | Explosive Bite | High risk, high reward |
-| KNOT | Tangled Lines | Controls reversed |
-| FOG | Thick Fog | Reduced visibility |
-| WAVE | Giant Wave | All bobbers reset |
-| x2 | Double Points | Next catch worth 2× |
+The `onGameStart(roomData)` callback in `js/app.js` is called when the host starts the game. Add your game logic there. The lobby, room, and Firebase infrastructure is ready to use.
 | ZAP | Speed Fish | Faster bites, faster escapes |
 
 ## Roadmap
